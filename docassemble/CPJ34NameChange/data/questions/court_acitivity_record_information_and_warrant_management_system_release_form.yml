@@ -1,0 +1,91 @@
+metadata:
+  title: Court Activity Record Information and Warrant Management System Release Form
+  short title: CJP 34
+---
+mandatory: True
+question: |
+  Your document is ready.
+subquestion: |
+  Thank you for using this interview.
+buttons:
+  - Exit: exit
+  - Restart: restart
+attachments:
+  - name: Court Activity Record Information and Warrant Management System Release Form
+    filename: Court_Activity_Record_Information_and_Warrant_Management_System_Release_Form
+    pdf template file: CJP_34_Docassemble_project.pdf
+    fields: 
+      "docket_number": ${ docket_number }
+      "case_name": ${ case_name }
+      "court_division": ${ court_division }
+      "proceeding_is_adoption": ${ proceeding_is_adoption }
+      "proceeding_is_name_change_petition": ${ proceeding_is_name_change_petition }
+      "proceeding_is_guardianship_of_incapacitated_person": ${ proceeding_is_guardianship_of_incapacitated_person }
+      "proceeding_is_guardianship_of_minor": ${ proceeding_is_guardianship_of_minor }
+      "proceeding_is_other": ${ proceeding_is_other }
+      "current_name": ${ current_name }
+      "date_of_birth": ${ date_of_birth }
+      "last_4_of_social": ${ last_4_of_social }
+      "mothers_maiden_name": ${ mothers_maiden_name }
+      "other_names_or_alias": ${ other_names_or_alias }
+---
+question: |
+  What is the case name?
+fields:
+  - 'Case Name': case_name
+    input type: area
+---
+question: |
+  What division is the Probate and Family Court located where your action is pending?
+subquestion: |
+  There is a division in each county.  This is the county where you filed this action.
+fields:
+  - 'Court Division': court_division
+---
+question: |
+  What is the current name of the individual whose name is being changed?
+fields:
+  - 'Current Name': current_name
+---
+question: |
+  What is the date of birth of the individual whose name is being changed?
+fields:
+  - 'Date of Birth': date_of_birth
+---
+question: |
+  What is the docket number of this action?
+fields:
+  - 'Docket Number': docket_number
+---
+question: |
+  What are the last four digits of the social security number for the individual whose name is being changed?
+fields:
+  - 'Last four social': last_4_of_social
+---
+question: |
+  What is the mother's maiden name?
+subquestion: |
+  Please input the mother's maiden name of the individual whose request for name change is being made.
+fields:
+  - "Mother's Maiden Name": mothers_maiden_name
+    input type: area
+---
+question: |
+  Please write down any other names or alias's of the individual whose name is being changed.
+fields:
+  - 'Other names or alias': other_names_or_alias
+    input type: area
+---
+question: |
+  The type of proceeding is?
+fields:
+  - 'Adoption': proceeding_is_adoption
+    datatype: yesno
+  - 'Guardianship of Incapacitated Person': proceeding_is_guardianship_of_incapacitated_person
+    datatype: yesno
+  - 'Guardianship of Minor': proceeding_is_guardianship_of_minor
+    datatype: yesno
+  - 'Change of Name': proceeding_is_name_change_petition
+    datatype: yesno
+  - 'Other': proceeding_is_other
+    datatype: yesno
