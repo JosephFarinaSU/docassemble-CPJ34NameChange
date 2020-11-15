@@ -15,8 +15,8 @@ attachments:
     filename: Court_Activity_Record_Information_and_Warrant_Management_System_Release_Form
     pdf template file: CJP_34_Docassemble_project.pdf
     fields: 
-      "docket_number": ${ docket_number }
       "case_name": ${ case_name }
+      "docket_number": ${ docket_number } 
       "court_division": ${ court_division }
       "proceeding_is_adoption": ${ proceeding_is_adoption }
       "proceeding_is_name_change_petition": ${ proceeding_is_name_change_petition }
@@ -29,21 +29,38 @@ attachments:
       "mothers_maiden_name": ${ mothers_maiden_name }
       "other_names_or_alias": ${ other_names_or_alias }
 ---
+mandatory: True
+code: |
+  multi_user = True
+---  
 question: |
   What is the case name?
 fields:
   - 'Case Name': case_name
-    input type: area
+    input type: text
 ---
 question: |
   What division is the Probate and Family Court located where your action is pending?
-subquestion: |
-  There is a division in each county.  This is the county where you filed this action.
 fields:
-  - 'Court Division': court_division
+  - no label: court_division
+    choices:
+      - Barnstable
+      - Berkshire
+      - Bristol
+      - Dukes
+      - Essex
+      - Franklin
+      - Hampden
+      - Hampshire
+      - Middlesex
+      - Nantucket
+      - Norfolk
+      - Plymouth
+      - Suffolk
+      - Worcester
 ---
 question: |
-  What is the current name of the individual whose name is being changed?
+  What is your current name?
 fields:
   - 'Current Name': current_name
 ---
@@ -51,6 +68,7 @@ question: |
   What is the date of birth of the individual whose name is being changed?
 fields:
   - 'Date of Birth': date_of_birth
+    datatype: date
 ---
 question: |
   What is the docket number of this action?
@@ -68,7 +86,7 @@ subquestion: |
   Please input the mother's maiden name of the individual whose request for name change is being made.
 fields:
   - "Mother's Maiden Name": mothers_maiden_name
-    input type: area
+    input type: text
 ---
 question: |
   Please write down any other names or alias's of the individual whose name is being changed.
