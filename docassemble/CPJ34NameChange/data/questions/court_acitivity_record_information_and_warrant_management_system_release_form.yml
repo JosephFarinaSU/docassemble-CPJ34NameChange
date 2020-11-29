@@ -1,8 +1,29 @@
+---
+include:
+  - docassemble.MAVirtualCourt:basic-questions.yml
+---
 metadata:
   title: Court Activity Record Information and Warrant Management System Release Form
   short title: CJP 34
 ---
+code: |
+  allowed_courts=['Probate and Family Court']
+---
+comment: |
+  This block controls the interview order
+id: interview_order
 mandatory: True
+code: |
+  multi_user = True
+  basic_questions_intro_screen
+  # users[0].address.address
+  download_cari
+---
+code: |
+  interview_short_title = "Complete a Court Activity Record Information Release"
+---
+# mandatory: True
+event: download_cari
 question: |
   Your document is ready.
 subquestion: |
@@ -17,7 +38,7 @@ attachments:
     fields: 
       "case_name": ${ case_name }
       "docket_number": ${ docket_number } 
-      "court_division": ${ court_division }
+      "court_division": ${ courts[0].division }
       "proceeding_is_adoption": ${ proceeding_is_adoption }
       "proceeding_is_name_change_petition": ${ proceeding_is_name_change_petition }
       "proceeding_is_guardianship_of_incapacitated_person": ${ proceeding_is_guardianship_of_incapacitated_person }
@@ -29,10 +50,6 @@ attachments:
       "mothers_maiden_name": ${ mothers_maiden_name }
       "other_names_or_alias": ${ other_names_or_alias }
 ---
-mandatory: True
-code: |
-  multi_user = True
----  
 question: |
   What is the case name?
 fields:
@@ -40,7 +57,7 @@ fields:
     input type: text
 ---
 question: |
-  What division is the Probate and Family Court located where your action is pending?
+  What is the division of the Probate and Family Court where your action is pending?
 fields:
   - no label: court_division
     choices:
@@ -65,31 +82,29 @@ fields:
   - 'Current Name': current_name
 ---
 question: |
-  What is the date of birth of the individual whose name is being changed?
+  What is your date of birth?
 fields:
   - 'Date of Birth': date_of_birth
     datatype: date
 ---
 question: |
-  What is the docket number of this action?
+  What is the docket number of this proceeding?
 fields:
   - 'Docket Number': docket_number
 ---
 question: |
-  What are the last four digits of the social security number for the individual whose name is being changed?
+  What are the last four digits of your social security number?
 fields:
   - 'Last four social': last_4_of_social
 ---
 question: |
-  What is the mother's maiden name?
-subquestion: |
-  Please input the mother's maiden name of the individual whose request for name change is being made.
+  What is your mother's maiden name?
 fields:
   - "Mother's Maiden Name": mothers_maiden_name
     input type: text
 ---
 question: |
-  Please write down any other names or alias's of the individual whose name is being changed.
+  Have you used any other names or alias? If yes, please write them down.
 fields:
   - 'Other names or alias': other_names_or_alias
     input type: area
@@ -107,3 +122,4 @@ fields:
     datatype: yesno
   - 'Other': proceeding_is_other
     datatype: yesno
+
