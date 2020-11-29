@@ -43,7 +43,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
     return out
 
 setup(name='docassemble.CPJ34NameChange',
-      version='2.0',
+      version='3.0',
       description=('Court Activity Record Information and Warrant Management System Release Form'),
       long_description='# docassemble.CPJ34NameChange\r\n\r\nCourt Activity Record Information and Warrant Management System Release Form\r\n\r\n## Author\r\n\r\njfarina@su.suffolk.edu\r\n\r\n',
       long_description_content_type='text/markdown',
