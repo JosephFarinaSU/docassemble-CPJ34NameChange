@@ -53,7 +53,7 @@ setup(name='docassemble.CPJ34NameChange',
       url='https://docassemble.org',
       packages=find_packages(),
       namespace_packages=['docassemble'],
-      install_requires=['docassemble.VirtualCourtToolbox'],
+      install_requires=['docassemble.MAVirtualCourt'],
       zip_safe=False,
       package_data=find_package_data(where='docassemble/CPJ34NameChange/', package='docassemble.CPJ34NameChange'),
      )
