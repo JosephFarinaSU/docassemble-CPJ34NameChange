@@ -1,0 +1,271 @@
+include:
+  - docassemble.MAVirtualCourt:basic-questions.yml
+---
+comment: |
+  The metadata section controls the tab title and saved interview title. You can delete this section if you include this YAML file in another YAML file.
+metadata:
+  title: |
+    File CARI Release Form
+  short title: |
+    CJP 34
+---
+comment: |
+  This section is used by MAVirtualCourts to control how some of the questions work.
+mandatory: True
+code: |
+  interview_metadata # make sure we initialize the object
+  if not defined("interview_metadata['CJP_34_Docassemble_project']"):
+    interview_metadata.initializeObject('CJP_34_Docassemble_project')
+  interview_metadata['CJP_34_Docassemble_project'].update({
+    'title': 'Court Activity Record Information and Warrant Management System Release Request Form',
+    'short title': 'CJP 34',
+    'description': 'Cjp 34 docassemble project',
+    'original_form': 'https://www.mass.gov/doc/court-activity-record-information-and-warrant-management-system-release-request-form-cjp-34/download',
+    'allowed courts': [
+      'Probate and Family Court',
+    ],
+    'categories': [
+      'Family Law',
+    ],
+    'logic block variable': 'CJP_34_Docassemble_project',
+    'attachment block variable': 'CJP_34_Docassemble_project_attachment',
+    'typical role': 'plaintiff',
+  })
+---
+features:
+  navigation: True
+---
+sections:
+  - review_CJP_34_Docassemble_project: Review your answers
+---
+id: interview_order_CJP_34_Docassemble_project
+code: |
+  # This is a placeholder to control logic flow in this interview
+
+  basic_questions_intro_screen 
+  CJP_34_Docassemble_project_intro
+  # Set the allowed courts for this interview
+  allowed_courts = interview_metadata["CJP_34_Docassemble_project"]["allowed courts"]
+  nav.set_section('review_CJP_34_Docassemble_project')
+  user_role = 'plaintiff'
+  proceeding_is_adoption
+  # case_name
+  current_name
+  docket_numbers
+  set_progress(12.5)
+  date_of_birth
+  last_4_of_social
+  mothers_maiden_name
+  set_progress(25.0)
+  other_names_or_alias
+  # Set the answer file name.
+  set_parts(subtitle=str(users))
+  set_progress(37.5)
+  users[0].address.zip
+  courts[0].division
+  # Save (anonymized) interview statistics.
+  store_variables_snapshot(data={'zip': users[0].address.zip})
+  CJP_34_Docassemble_project_preview_question # Pre-canned preview screen
+  CJP_34_Docassemble_project = True
+---
+comment: |
+  This question is used to introduce your interview. Please customize
+id: Court Activity Record Information and Warrant Management System Release Request Form 
+continue button field: CJP_34_Docassemble_project_intro
+question: |
+  Welcome to the interview!
+subquestion: |
+ This interview is to complete a Court Activity Record Information and Warrant Management System Release Request Form.  
+ 
+ This form is filed as an attachment to a Name Change Petition Form and will authorize the court to check on any names used by you.
+
+ To get started, press **Continue**.
+---
+id: Review your form before you sign it
+continue button field: CJP_34_Docassemble_project_preview_question
+question: |
+  Review your form before you sign it
+subquestion: |
+  Here is a preview of the form you'll sign on the next page.
+
+   ${ pdf_concatenate(CJP_34_Docassemble_project_attachment['preview'], filename='CJP_34_Docassemble_project.pdf')}
+---
+id: Case Name
+question: |
+  Case name
+subquestion: |
+  What is the name of the case?
+fields:
+  - 'Case name': case_name
+    maxlength: 53
+---
+id: Docket Number
+question: |
+ Docket number
+subquestion: |
+ What is the docket number?
+fields:
+ - 'docket number': docket_numbers
+---
+id: Current Name
+question: |
+  Current legal name
+subquestion: |
+  What is your current legal name?
+fields:
+  - 'Current name': current_name
+    maxlength: 24
+---
+id: Type of Proceeding
+question: |
+  Type of Proceeding
+subquestion: |
+  What kind of case are you using this form in?
+  
+  If other, please define.
+fields:
+  - 'Proceeding is adoption': proceeding_is_adoption
+    datatype: yesno
+  - 'Proceeding is name change petition': proceeding_is_name_change_petition
+    datatype: yesno
+  - 'Proceeding is guardianship of incapacitated person': proceeding_is_guardianship_of_incapacitated_person
+    datatype: yesno
+  - 'Proceeding is guardianship of minor': proceeding_is_guardianship_of_minor
+    datatype: yesno
+  - 'Proceeding is other': proceeding_is_other
+    datatype: yesno
+---
+id: Date of Birth
+question: |
+  Date of birth
+subquestion: |
+  What is your date of birth?
+fields:
+  - 'Date of birth': date_of_birth
+    datatype: date
+---
+id: Social Security Number
+question: |
+  Social security number
+subquestion: |
+  What are the last four digits of your social security number?
+fields:
+  - 'Last 4 of social': last_4_of_social
+    datatype: text
+    maxlength: 4
+---
+id: Mother s Maiden Name
+question: |
+  Mother's maiden name?
+subquestion: |
+  What is your mother's maiden name?
+fields:
+  - 'Mothers maiden name': mothers_maiden_name
+    maxlength: 24
+---
+id: Other names or alias
+question: |
+  Other names or alias
+subquestion: |
+  Have you ever used any other names or alias? If so, please list any and all names below?
+fields:
+  - 'Other names or alias': other_names_or_alias
+    maxlength: 330
+---
+progress: 100
+mandatory: True
+id: Your form is ready to download and file
+question: |
+  Your form is ready to download and file
+subquestion: |
+  Thank you ${users}. Your form is ready to download and deliver.
+
+  Below is a preview of your form.
+
+  ${pdf_concatenate(CJP_34_Docassemble_project_attachment['final'], filename='CJP_34_Docassemble_project.pdf') }
+need: CJP_34_Docassemble_project
+attachment code: CJP_34_Docassemble_project_attachment['final']
+---
+objects:
+  - CJP_34_Docassemble_project_attachment: DADict
+---
+attachment:
+    variable name: CJP_34_Docassemble_project_attachment[i]
+    name: CJP 34
+    filename: CJP_34
+    skip undefined: True
+    pdf template file: CJP_34_Docassemble_project.pdf
+    fields: 
+      - "docket_number": ${ docket_numbers }
+      - "court_division": ${ courts[0].division }
+      - "case_name": In re ${ current_name }
+      - "proceeding_is_adoption": ${ proceeding_is_adoption }
+      - "proceeding_is_name_change_petition": ${ proceeding_is_name_change_petition }
+      - "proceeding_is_guardianship_of_incapacitated_person": ${ proceeding_is_guardianship_of_incapacitated_person }
+      - "proceeding_is_guardianship_of_minor": ${ proceeding_is_guardianship_of_minor }
+      - "proceeding_is_other": ${ proceeding_is_other }
+      - "current_name": ${ current_name }
+      - "date_of_birth": ${ date_of_birth }
+      - "last_4_of_social": ${ last_4_of_social }
+      - "mothers_maiden_name": ${ mothers_maiden_name }
+      - "other_names_or_alias": ${ other_names_or_alias }
+---
+id: CJP_34_Docassemble_project review screen
+event: review_CJP_34_Docassemble_project
+question: |
+  Placeholder Review Screen
+subquestion: |
+  Edit your answers below
+review: 
+  - Edit: case_name
+    button: |
+      Case name:
+      ${ case_name }
+  - Edit: proceeding_is_adoption
+    button: |
+      Proceeding is adoption:
+      ${ word(yesno(proceeding_is_adoption)) }
+  - Edit: proceeding_is_name_change_petition
+    button: |
+      Proceeding is name change petition:
+      ${ word(yesno(proceeding_is_name_change_petition)) }
+  - Edit: proceeding_is_guardianship_of_incapacitated_person
+    button: |
+      Proceeding is guardianship of incapacitated person:
+      ${ word(yesno(proceeding_is_guardianship_of_incapacitated_person)) }
+  - Edit: proceeding_is_guardianship_of_minor
+    button: |
+      Proceeding is guardianship of minor:
+      ${ word(yesno(proceeding_is_guardianship_of_minor)) }
+  - Edit: proceeding_is_other
+    button: |
+      Proceeding is other:
+      ${ word(yesno(proceeding_is_other)) }
+  - Edit: current_name
+    button: |
+      Current name:
+      ${ current_name }
+  - Edit: date_of_birth
+    button: |
+      Date of birth:
+      ${ date_of_birth.format() }
+  - Edit: last_4_of_social
+    button: |
+      Last 4 of social:
+      ${ last_4_of_social }
+  - Edit: mothers_maiden_name
+    button: |
+      Mothers maiden name:
+      ${ mothers_maiden_name }
+  - Edit: other_names_or_alias
+    button: |
+      Other names or alias:
+      ${ other_names_or_alias }
+  - Edit: docket_numbers
+    button: |
+      docket_numbers:
+      ${ docket_numbers }
+  - Edit: courts[0].division
+    button: |
+      courts[0].division:
+      ${ courts[0].division }
